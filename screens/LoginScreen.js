@@ -10,7 +10,7 @@ import {
     TouchableOpacity
 } from "react-native";
 import { CheckBox } from 'react-native-elements'
-import  Splash  from '../Components/Splash'
+import Splash from '../Components/Splash'
 
 
 class LoginScreen extends Component {
@@ -44,13 +44,15 @@ class LoginScreen extends Component {
                     <ImageBackground source={require('../src/BG.png')}
                         style={{ width: '100%', height: '100%' }}>
 
-                        <View style={styles.logoContainer}>
-                            <Image style={styles.logo}
-                                source={require('../src/Icons/Logo.png')}
+                        <View style={styles.Container}>
+                            <View style={styles.LogoContainer}>
+                                <Image style={styles.logo}
+                                    source={require('../src/Icons/Logo.png')}
 
-                            />
+                                />
+                            </View>
                             <Image
-                                style={{ marginTop: 65 }}
+                                style={{  }}
                                 source={require('../src/DP.png')}
 
                             />
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
 
-        marginTop: 17,
+        marginTop: 5,
         borderRadius: 10,
         paddingTop: 5,
         paddingBottom: 5,
@@ -219,14 +221,22 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         textAlign: 'center'
     },
-    logoContainer: {
+    Container: {
         alignItems: 'center',
         flexGrow: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+    },
+    LogoContainer: {
+
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logo: {
+        height: 190,
         width: 140,
-        height: 100,
+
+        resizeMode: 'contain'
 
     },
 

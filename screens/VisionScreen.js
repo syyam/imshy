@@ -28,32 +28,45 @@ class VisionScreen extends React.Component {
 
                         />
 
+                    </View>
 
-                        <View style={styles.buttonsView}>
-                            <TouchableOpacity
-                                style={{ marginTop:30 }}
-                                
-                            >
-                                <Image
-                                    style={{
-                                    }}
-                                    source={require('../src/giphy.gif')}
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{ marginTop:20 }}
-                                onPress={() => this.props.navigation.navigate('InputDetail')}
+                    <TouchableOpacity style={{
+                        alignSelf: 'flex-end',
+                        position: 'absolute', top: 15, right: 15
+                    }} onPress={() => this.props.navigation.navigate('Home')}>
+                        <Image style={{
 
-                            >
-                                <Text style={{color:'#fff', fontSize:22}}>Tap To Record Input</Text>
-                            </TouchableOpacity>
-                        </View>
+                        }}
+                            source={require('../src/Icons/Cancel.png')}
+
+                        />
+                    </TouchableOpacity>
+
+
+                    <View style={styles.buttonsView}>
+                        <TouchableOpacity
+                            style={{ marginTop: 30 }}
+
+                        >
+                            <Image
+                                style={{
+                                }}
+                                source={require('../src/giphy.gif')}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{ marginBottom:15 }}
+                            onPress={() => this.props.navigation.navigate('InputDetail')}
+
+                        >
+                            <Text style={{ color: '#fff', fontSize: 20 }}>Tap To Record Input</Text>
+                        </TouchableOpacity>
                     </View>
 
 
 
                 </ImageBackground>
-            </View>
+            </View >
         );
     }
 }

@@ -21,12 +21,12 @@ class LoginScreenReal extends Component {
             email: "",
             password: "",
             checked: false
-            
+
         }
     }
-        static navigationOptions = {
-            header: null
-        }
+    static navigationOptions = {
+        header: null
+    }
 
     render() {
         return (
@@ -34,13 +34,15 @@ class LoginScreenReal extends Component {
                 <ImageBackground source={require('../src/loginBG.png')}
                     style={{ width: '100%', height: '100%' }}>
 
-                    <View style={styles.logoContainer}>
-                        <Image style={styles.logo}
+                    <View style={styles.Container}>
+                        <View style={styles.LogoContainer}>
+                            <Image style={styles.logo}
                                 source={require('../src/Icons/Logo.png')}
 
-                        />
+                            />
+                        </View>
                         <Image
-                            style={{ marginTop: 65 }}
+                            style={{}}
                             source={require('../src/DP.png')}
 
                         />
@@ -68,6 +70,8 @@ class LoginScreenReal extends Component {
                             </View>
                         </View>
 
+
+
                         <View style={styles.checkButtonView}>
                             <CheckBox
 
@@ -84,7 +88,7 @@ class LoginScreenReal extends Component {
                                         flex: 1,
                                         width: 92,
                                         resizeMode: 'contain',
-                                        marginRight:16
+                                        marginRight: 16
 
                                     }}
                                     source={require('../src/Icons/Sign_In.png')}
@@ -92,7 +96,18 @@ class LoginScreenReal extends Component {
                             </TouchableHighlight>
                         </View>
 
+                        <Text style={{
+                            color: '#fff', fontSize: 12,
+                            alignItems: 'flex-end',
+                            marginTop: 10
+                        }}>Forgot password? Click here.</Text>
 
+
+                        <Text style={{
+                            color: '#fff', fontSize: 12,
+                            alignItems: 'flex-end',
+                            marginTop: 10
+                        }}>OR</Text>
 
                         <TouchableOpacity
                             onPress={() => this.props.navigation.goBack()}
@@ -124,13 +139,13 @@ const styles = StyleSheet.create({
     inputBox: {
         backgroundColor: '#fff',
         alignItems: 'center',
-        
-        marginTop: 17,
+
+        marginTop: 5,
         borderRadius: 10,
         paddingTop: 5,
         paddingBottom: 5,
-        paddingLeft:5,
-        paddingRight:5,
+        paddingLeft: 5,
+        paddingRight: 5,
         justifyContent: 'center',
     },
     inputRow: {
@@ -164,16 +179,23 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         textAlign: 'center'
     },
-    logoContainer: {
+    Container: {
         alignItems: 'center',
         flexGrow: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+    },
+    LogoContainer: {
+
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logo: {
+        height: 190,
         width: 140,
-        height: 100,
 
-        
+        resizeMode: 'contain'
+
     },
 
 

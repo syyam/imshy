@@ -38,46 +38,58 @@ class DiscoverHomeScreen extends React.Component {
                         />
                     </View>
 
+                    <TouchableOpacity style={{
+                        alignSelf: 'flex-end',
+                        position: 'absolute', top: 15, right: 15
+                    }} onPress={() => this.props.navigation.navigate('Home')}>
+                        <Image style={{
+
+                        }}
+                            source={require('../src/Icons/Cancel.png')}
+
+                        />
+                    </TouchableOpacity>
+
                     <View style={styles.BottomContainer}>
                         <Text style={{ color: '#fff', fontSize: 17 }}>Search Location</Text>
                         <Input
-                            inputStyle={{ }}
-                            containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginTop: 2, paddingLeft:0 }}
+                            inputStyle={{}}
+                            containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginTop: 2, paddingLeft: 0 }}
 
                             placeholder='Search Maps'
-                            leftIcon={{ type: 'font-awesome', name: 'search'}}
+                            leftIcon={{ type: 'font-awesome', name: 'search' }}
                         />
 
-                        <Text style={{ color: '#fff', fontSize: 17, marginTop:13, }}>Search Date</Text>
+                        <Text style={{ color: '#fff', fontSize: 17, marginTop: 13, }}>Search Date</Text>
                         <Input
-                            inputStyle={{   }}
+                            inputStyle={{}}
                             containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginTop: 2, }}
 
                             placeholder='4/12/12'
                         />
 
-                        <Text style={{ color: '#fff', fontSize: 17, marginTop:13, }}>Search Time Frame</Text>
+                        <Text style={{ color: '#fff', fontSize: 17, marginTop: 13, }}>Search Time Frame</Text>
                         <Input
-                            inputStyle={{ }}
+                            inputStyle={{}}
                             containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginTop: 2, }}
 
                             placeholder='12:00PM-2:00PM'
                         />
 
                         <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('InputSubmitted')}
-                            >
-                                <Image
-                                    style={{
-                                        width: 120,
-                                        alignSelf: 'flex-end',
-                                        resizeMode: 'contain',
+                        //onPress={() => this.props.navigation.navigate('InputSubmitted')}
+                        >
+                            <Image
+                                style={{
+                                    width: 120,
+                                    alignSelf: 'flex-end',
+                                    resizeMode: 'contain',
 
-                                    }}
+                                }}
 
-                                    source={require('../src/Icons/Submit_Request.png')}
-                                />
-                            </TouchableOpacity>
+                                source={require('../src/Icons/Submit_Request.png')}
+                            />
+                        </TouchableOpacity>
                     </View>
 
 
@@ -107,7 +119,7 @@ const styles = StyleSheet.create({
     BottomContainer: {
         marginLeft: 25,
         flexGrow: 1,
-        marginTop:110,        
+        marginTop: 110,
         marginRight: 25,
     },
 

@@ -28,10 +28,12 @@ class HomeScreen extends React.Component {
 
                         />
 
+                        
+
 
                         <View style={styles.buttonsView}>
                             <TouchableOpacity
-                                style={{ marginTop:90 }}
+                                style={{ marginTop: 90 }}
                                 onPress={() => this.props.navigation.navigate('Vision')}
                             >
                                 <Image
@@ -43,7 +45,7 @@ class HomeScreen extends React.Component {
                                 />
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={{ marginTop:20 }}
+                                style={{ marginTop: 20 }}
                                 onPress={() => this.props.navigation.navigate('DiscoverHome')}
                             >
                                 <Image

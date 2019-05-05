@@ -10,6 +10,7 @@ import {
     TouchableOpacity
 } from "react-native";
 
+
 class InputDetailScreen extends React.Component {
 
 
@@ -55,6 +56,18 @@ class InputDetailScreen extends React.Component {
 
                     </View>
 
+                    <TouchableOpacity style={{
+                        alignSelf: 'flex-end',
+                        position: 'absolute', top: 15, right: 15
+                    }} onPress={() => this.props.navigation.navigate('Home')}>
+                        <Image style={{
+
+                        }}
+                            source={require('../src/Icons/Cancel.png')}
+
+                        />
+                    </TouchableOpacity>
+
 
                     <View style={styles.main}>
                         <View style={styles.TopTextView}>
@@ -66,13 +79,20 @@ class InputDetailScreen extends React.Component {
 
                         <View styly={styles.pictureContainer}>
                             <Text style={{ color: '#fff', fontSize: 12, marginTop: 50 }}>Take a picture (required) </Text>
-                            <Image style={{
-                                marginTop: 10, width: 190,
-                                height: 180,
-                            }}
-                                source={require('../src/Icons/Upload.png')}
 
-                            />
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('Camera')}
+                            >
+                                <Image style={{
+                                    marginTop: 10, width: 190,
+                                    height: 180,
+                                }}
+                                    source={require('../src/Icons/Upload.png')}
+
+
+                                />
+                            </TouchableOpacity>
+
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('InputSubmitted')}
                             >

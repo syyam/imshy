@@ -24,9 +24,6 @@ class InputSubmittedScreen extends React.Component {
 
         };
     }
-    componentDidMount() {
-
-    }
 
     render() {
         var date = new Date().getDate()
@@ -40,29 +37,42 @@ class InputSubmittedScreen extends React.Component {
                             source={require('../src/Icon.png')}
 
                         />
+                    </View>
 
 
-                        <View style={styles.buttonsView}>
-                            <TouchableOpacity
-                                style={{ marginTop:30 }}
-                                
-                            >
-                                <Image
-                                    style={{
-                                        width:160,
-                                        height:120
-                                    }}
-                                    source={require('../src/Icon.png')}
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{ marginTop:20 }}
-                                
+                    <TouchableOpacity style={{
+                        alignSelf: 'flex-end',
+                        position: 'absolute', top: 15, right: 15
+                    }} onPress={() => this.props.navigation.navigate('Home')}>
+                        <Image style={{
 
-                            >
-                                <Text style={{color:'#fff', fontSize:22}}>Input Submitted</Text>
-                            </TouchableOpacity>
-                        </View>
+                        }}
+                            source={require('../src/Icons/Cancel.png')}
+
+                        />
+                    </TouchableOpacity>
+
+
+                    <View style={styles.buttonsView}>
+                        <TouchableOpacity
+                            style={{}}
+
+                        >
+                            <Image
+                                style={{
+                                    width: 160,
+                                    height: 120
+                                }}
+                                source={require('../src/Icon.png')}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{ marginTop: 20 }}
+
+
+                        >
+                            <Text style={{ color: '#fff', fontSize: 22 }}>Input Submitted</Text>
+                        </TouchableOpacity>
                     </View>
 
 
@@ -92,9 +102,7 @@ const styles = StyleSheet.create({
         position: 'absolute', top: 10
     },
     buttonsView: {
-
-        justifyContent: 'center',
-
+        flexGrow:1,
         alignItems: 'center'
     }
 
