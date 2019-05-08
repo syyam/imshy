@@ -7,7 +7,8 @@ import {
     Image,
     ImageBackground,
     TouchableHighlight,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from "react-native";
 import { CheckBox } from 'react-native-elements'
 
@@ -17,16 +18,47 @@ class LoginScreenReal extends Component {
     constructor() {
         super();
         this.state = {
-            name: "",
-            email: "",
-            password: "",
-            checked: false
+            UserName: "",
+            UserPassword: "",
+            checked: true
 
         }
     }
     static navigationOptions = {
         header: null
     }
+
+    userLogin = () => {
+        const { UserName } = this.state;
+        const { UserPassword } = this.state;
+        if (UserName) {
+            if (UserPassword) {
+                fetch('http://replicapakistan.com/user_login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: UserName,
+                        password: UserPassword
+                    })
+
+                }).then((response) => response.json())
+                    .then((responseJson) => {
+                        if (responseJson == 'Done') {
+                            this.props.navigation.navigate('Home');
+                        }
+                        else {
+                            Alert.alert(responseJson);
+                        }
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+            }
+        }
+    }
+
 
     render() {
         return (
@@ -53,7 +85,7 @@ class LoginScreenReal extends Component {
                                 <Image source={require('../src/Icons/userIcon.png')} style={styles.inputIcons} />
                                 <TextInput
                                     autoFocus={false}
-                                    onChangeText={(text) => this.setState({ name: text })}
+                                    onChangeText={UserName => this.setState({ UserName })}
                                     style={styles.input}
                                     placeholder="Username..."
                                 >
@@ -62,7 +94,7 @@ class LoginScreenReal extends Component {
                             <View style={styles.inputRow}>
                                 <Image source={require('../src/Icons/passwordIcon.png')} style={styles.inputIcons} />
                                 <TextInput
-                                    onChangeText={(text) => this.setState({ password: text })}
+                                    onChangeText={UserPassword => this.setState({ UserPassword })}
                                     style={styles.input}
                                     placeholder="Password..."
                                     secureTextEntry={true}>
@@ -81,7 +113,7 @@ class LoginScreenReal extends Component {
 
                             <Text style={{ color: '#fff', fontSize: 10, marginRight: 45 }}>I agree to the terms and conditions</Text>
                             <TouchableHighlight
-                                onPress={() => this.props.navigation.navigate('Home')}
+                                onPress={this.userLogin}
                             >
                                 <Image
                                     style={{

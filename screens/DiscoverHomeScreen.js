@@ -8,7 +8,9 @@ import {
     TouchableHighlight,
     TouchableOpacity,
 } from "react-native";
-import { Input } from 'react-native-elements';
+
+import DateTimePicker from "react-native-modal-datetime-picker";
+
 
 class DiscoverHomeScreen extends React.Component {
 
@@ -20,12 +22,42 @@ class DiscoverHomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            isDatePickerVisible: false,
+            isTimePickerVisible: false,
+            selectedDate: "4/22/19",
+            selectedTime: "12:00AM",
         };
     }
 
 
+    showDatePicker = () => {
+        this.setState({ isDatePickerVisible: true });
+    };
+
+    hideDatePicker = () => {
+        this.setState({ isDatePickerVisible: false });
+    };
+    showTimePicker = () => {
+        this.setState({ isTimePickerVisible: true });
+    };
+
+    hideTimePicker = () => {
+        this.setState({ isTimePickerVisible: false });
+    };
+
+    handleDatePicked = date => {
+        this.setState({ selectedDate: date.toString() });
+        this.hideDatePicker();
+    };
+
+    handleTimePicked = time => {
+        this.setState({ selectedTime: time.toString() });
+        this.hideTimePicker();
+    };
+
+
     render() {
+        const { isDatePickerVisible, isTimePickerVisible, selectedDate, selectedTime } = this.state;
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('../src/homeBG.png')}
@@ -52,29 +84,81 @@ class DiscoverHomeScreen extends React.Component {
 
                     <View style={styles.BottomContainer}>
                         <Text style={{ color: '#fff', fontSize: 17 }}>Search Location</Text>
-                        <Input
-                            inputStyle={{}}
-                            containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginTop: 2, paddingLeft: 0 }}
 
-                            placeholder='Search Maps'
-                            leftIcon={{ type: 'font-awesome', name: 'search' }}
-                        />
+
+
+                        <View style={styles.inputBox}>
+
+                            <View style={styles.inputRow}>
+                                <TouchableOpacity>
+                                    <Image source={require('../src/Icons/search.png')} style={styles.inputIcons} />
+                                </TouchableOpacity>
+                                <Text
+
+                                    style={styles.input}
+
+                                >
+                                    Search Maps...
+                                </Text>
+
+                            </View>
+
+                        </View>
 
                         <Text style={{ color: '#fff', fontSize: 17, marginTop: 13, }}>Search Date</Text>
-                        <Input
-                            inputStyle={{}}
-                            containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginTop: 2, }}
 
-                            placeholder='4/12/12'
-                        />
+                        <View style={styles.inputBox}>
+
+                            <View style={styles.inputRow}>
+
+                                <Text
+
+                                    style={styles.input}
+
+                                >
+                                    {selectedDate}
+                                </Text>
+                                <TouchableOpacity onPress={this.showDatePicker}>
+                                    <Image source={require('../src/Icons/Date.png')} style={styles.inputIcons}
+                                    />
+                                    <DateTimePicker
+                                        isVisible={isDatePickerVisible}
+                                        onConfirm={this.handleDatePicked}
+                                        onCancel={this.hideDatePicker}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
 
                         <Text style={{ color: '#fff', fontSize: 17, marginTop: 13, }}>Search Time Frame</Text>
-                        <Input
-                            inputStyle={{}}
-                            containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginTop: 2, }}
 
-                            placeholder='12:00PM-2:00PM'
-                        />
+
+                        <View style={styles.inputBox}>
+
+                            <View style={styles.inputRow}>
+                                <Text
+
+                                    style={styles.input}
+                                >
+                                    {selectedTime}
+
+                                </Text>
+                                <TouchableOpacity style={{width:30}} onPress={this.showTimePicker}>
+                                    <Image source={require('../src/Icons/time.png')} style={styles.inputIcons} />
+                                    <DateTimePicker
+                                        isVisible={isTimePickerVisible}
+                                        onConfirm={this.handleTimePicked}
+                                        onCancel={this.hideTimePicker}
+                                        mode={'time'}
+                                        is24Hour={false}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+
+
 
                         <TouchableOpacity
                         //onPress={() => this.props.navigation.navigate('InputSubmitted')}
@@ -94,7 +178,7 @@ class DiscoverHomeScreen extends React.Component {
 
 
                 </ImageBackground>
-            </View>
+            </View >
         );
     }
 }
@@ -122,5 +206,30 @@ const styles = StyleSheet.create({
         marginTop: 110,
         marginRight: 25,
     },
+    inputBox: {
+        backgroundColor: '#fff',
+        alignItems: 'center',
+
+        marginTop: 5,
+        borderRadius: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        paddingLeft: 5,
+        paddingRight: 5,
+        justifyContent: 'center',
+    },
+    inputRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 40
+    },
+    input: {
+        width: 300,
+        backgroundColor: '#fff',
+        paddingHorizontal: 16,
+        fontSize: 16,
+    },
+
 
 });

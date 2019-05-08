@@ -7,7 +7,8 @@ import {
     Image,
     ImageBackground,
     TouchableHighlight,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from "react-native";
 import { CheckBox } from 'react-native-elements'
 import Splash from '../Components/Splash'
@@ -18,16 +19,70 @@ class LoginScreen extends Component {
     constructor() {
         super();
         this.state = {
-            name: "",
-            email: "",
-            password: "",
-            checked: false,
+            UserName: "",
+            UserEmail: "",
+            UserPassword: "",
+            checked: true,
             showSplash: true,
         }
     }
+
     static navigationOptions = {
         header: null
     }
+
+    UserRegistration = () => {
+        const { UserName } = this.state;
+        const { UserEmail } = this.state;
+        const { UserPassword } = this.state;
+        const { checked } = this.state;
+
+        console.log('functionc called')
+
+
+        if (UserName) {
+            console.log(UserName)
+
+            if (UserEmail) {
+                console.log(UserEmail)
+
+                if (UserPassword) {
+                    console.log(UserPassword)
+
+                    if (checked == true) {
+                        console.log('checked true')
+
+                        fetch('http://replicapakistan.com/user_registration.php', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                name: UserName,
+                                email: UserEmail,
+                                password: UserPassword
+                            })
+
+                        }).then((response) => response.json())
+                            .then((responseJson) => {
+                                console.log(responseJson)
+
+                                if (responseJson == 'Registration Successfull') {
+                                    this.props.navigation.navigate('Home');
+                                }
+                                else {
+                                    Alert.alert(responseJson);
+                                }
+                            }).catch((error) => {
+                                console.error(error);
+                            });
+                    }
+                }
+            }
+        }
+    }
+
 
     componentWillMount() {
         setTimeout(() => {
@@ -52,7 +107,7 @@ class LoginScreen extends Component {
                                 />
                             </View>
                             <Image
-                                style={{  }}
+                                style={{}}
                                 source={require('../src/DP.png')}
 
                             />
@@ -62,7 +117,7 @@ class LoginScreen extends Component {
                                     <Image source={require('../src/Icons/userIcon.png')} style={styles.inputIcons} />
                                     <TextInput
                                         autoFocus={false}
-                                        onChangeText={(text) => this.setState({ name: text })}
+                                        onChangeText={UserName => this.setState({ UserName })}
                                         style={styles.input}
                                         placeholder="Username..."
                                     >
@@ -72,7 +127,7 @@ class LoginScreen extends Component {
                                     <Image source={require('../src/Icons/emailIcon.png')} style={styles.inputIcons} />
                                     <TextInput
                                         autoFocus={false}
-                                        onChangeText={(text) => this.setState({ email: text })}
+                                        onChangeText={UserEmail => this.setState({ UserEmail })}
                                         style={styles.input} placeholder="Email..."
                                         keyboardType='email-address'>
                                     </TextInput>
@@ -80,7 +135,7 @@ class LoginScreen extends Component {
                                 <View style={styles.inputRow}>
                                     <Image source={require('../src/Icons/passwordIcon.png')} style={styles.inputIcons} />
                                     <TextInput
-                                        onChangeText={(text) => this.setState({ password: text })}
+                                        onChangeText={UserPassword => this.setState({ UserPassword })}
                                         style={styles.input}
                                         placeholder="Password..."
                                         secureTextEntry={true}>
@@ -97,7 +152,7 @@ class LoginScreen extends Component {
 
                                 <Text style={{ color: '#fff', fontSize: 10, marginRight: 45 }}>I agree to the terms and conditions</Text>
                                 <TouchableHighlight
-                                    onPress={() => this.props.navigation.navigate('Home')} // Home
+                                    onPress={this.UserRegistration} // Home
                                 >
                                     <Image
                                         style={{

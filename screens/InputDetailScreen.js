@@ -78,13 +78,18 @@ class InputDetailScreen extends React.Component {
                         </View>
 
                         <View styly={styles.pictureContainer}>
-                            <Text style={{ color: '#fff', fontSize: 12, marginTop: 50 }}>Take a picture (required) </Text>
+                            <Text style={{
+                                color: '#fff', fontSize: 12, marginTop: 50, alignSelf: 'center',
+                                justifyContent: 'center',
+                            }}>Take a picture (required) </Text>
 
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Camera')}
                             >
                                 <Image style={{
                                     marginTop: 10, width: 190,
+                                    alignSelf: 'center',
+                                    justifyContent: 'center',
                                     height: 180,
                                 }}
                                     source={require('../src/Icons/Upload.png')}
@@ -93,14 +98,28 @@ class InputDetailScreen extends React.Component {
                                 />
                             </TouchableOpacity>
 
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Enter Brief Message"
+                                    placeholderTextColor="#FFF" 
+                                    multiline={true}
+                                    numberOfLines={5}
+                                >
+
+                                </TextInput>
+                            </View>
+
+
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('InputSubmitted')}
                             >
                                 <Image
                                     style={{
-                                        width: 92,
-                                        alignSelf: 'flex-end',
+                                        width: 90,
+                                        alignSelf: 'center',
                                         resizeMode: 'contain',
+                                        marginTop:40
 
                                     }}
 
@@ -145,8 +164,33 @@ const styles = StyleSheet.create({
     },
     pictureContainer: {
         alignItems: 'center',
-
+        justifyContent: 'center',
         justifyContent: 'center'
     },
+    inputContainer: {
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderColor: "#fff",
+        backgroundColor: 'transparent',
+        height: 70,
+
+        justifyContent: 'center',
+
+        width: 200,
+        marginTop: 10
+    },
+    input: {
+        height: 70,
+        backgroundColor: 'transparent',
+        paddingLeft: 15,
+        paddingRight: 15,
+        color: "#fff",
+        width: 200,
+        textAlignVertical: "top",
+        alignItems: this.multiline ? 'flex-start' : 'center',
+
+    }
 
 });

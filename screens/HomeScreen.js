@@ -28,7 +28,18 @@ class HomeScreen extends React.Component {
 
                         />
 
-                        
+
+                        <TouchableOpacity
+                            //onPress={() => this.props.navigation.navigate('LoginReal')}
+                        >
+                            <Text style={{
+                                color: '#fff', fontSize: 22, alignItems: 'center',
+                                justifyContent: 'center',
+                                alignContent: 'stretch',
+                                marginTop: 10,
+                                textDecorationLine: 'underline',
+                            }}>How Does it Work?</Text>
+                        </TouchableOpacity>
 
 
                         <View style={styles.buttonsView}>
