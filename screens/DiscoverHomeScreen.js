@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from "moment";
 
 
 class DiscoverHomeScreen extends React.Component {
@@ -24,8 +25,8 @@ class DiscoverHomeScreen extends React.Component {
         this.state = {
             isDatePickerVisible: false,
             isTimePickerVisible: false,
-            selectedDate: "4/22/19",
-            selectedTime: "12:00AM",
+            selectedDate: "00-00-0000",
+            selectedTime: "00:00-00:00",
         };
     }
 
@@ -46,12 +47,14 @@ class DiscoverHomeScreen extends React.Component {
     };
 
     handleDatePicked = date => {
-        this.setState({ selectedDate: date.toString() });
+
+        this.setState({ selectedDate: moment(date).format('DD-MM-YYYY') });
         this.hideDatePicker();
     };
 
     handleTimePicked = time => {
-        this.setState({ selectedTime: time.toString() });
+        var timeRange = moment(time).format('HH:mm') + "-" + moment(time).add(2, 'hours').format('HH:mm')
+        this.setState({ selectedTime: timeRange });
         this.hideTimePicker();
     };
 
@@ -112,19 +115,18 @@ class DiscoverHomeScreen extends React.Component {
                             <View style={styles.inputRow}>
 
                                 <Text
-
                                     style={styles.input}
-
                                 >
                                     {selectedDate}
                                 </Text>
                                 <TouchableOpacity onPress={this.showDatePicker}>
-                                    <Image source={require('../src/Icons/Date.png')} style={styles.inputIcons}
+                                    <Image source={require('../src/Icons/Date.png')} style={styles.dropDown}
                                     />
                                     <DateTimePicker
                                         isVisible={isDatePickerVisible}
                                         onConfirm={this.handleDatePicked}
                                         onCancel={this.hideDatePicker}
+                                        datePickerModeAndroid={'spinner'}
                                     />
                                 </TouchableOpacity>
                             </View>
@@ -144,8 +146,8 @@ class DiscoverHomeScreen extends React.Component {
                                     {selectedTime}
 
                                 </Text>
-                                <TouchableOpacity style={{width:30}} onPress={this.showTimePicker}>
-                                    <Image source={require('../src/Icons/time.png')} style={styles.inputIcons} />
+                                <TouchableOpacity style={{ width: 30 }} onPress={this.showTimePicker}>
+                                    <Image source={require('../src/Icons/time.png')} style={styles.dropDown} />
                                     <DateTimePicker
                                         isVisible={isTimePickerVisible}
                                         onConfirm={this.handleTimePicked}
@@ -161,7 +163,7 @@ class DiscoverHomeScreen extends React.Component {
 
 
                         <TouchableOpacity
-                        //onPress={() => this.props.navigation.navigate('InputSubmitted')}
+                            onPress={() => this.props.navigation.navigate('PotCon')}
                         >
                             <Image
                                 style={{
@@ -209,14 +211,13 @@ const styles = StyleSheet.create({
     inputBox: {
         backgroundColor: '#fff',
         alignItems: 'center',
-
         marginTop: 5,
         borderRadius: 10,
         paddingTop: 5,
         paddingBottom: 5,
         paddingLeft: 5,
         paddingRight: 5,
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     inputRow: {
         flexDirection: 'row',
@@ -225,10 +226,16 @@ const styles = StyleSheet.create({
         height: 40
     },
     input: {
-        width: 300,
+        width: 290,
         backgroundColor: '#fff',
         paddingHorizontal: 16,
-        fontSize: 16,
+        fontSize: 15,
+    },
+    inputIcons: {
+        marginLeft: 10
+    },
+    dropDown: {
+        marginRight: 10,
     },
 
 
