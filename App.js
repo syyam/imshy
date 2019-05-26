@@ -9,8 +9,10 @@ import VisionScreen from './screens/VisionScreen'
 import InputDetailScreen from './screens/InputDetailScreen'
 import InputSubmittedScreen from './screens/ImputSubmitted'
 import DiscoverHomeScreen from './screens/DiscoverHomeScreen'
+import DiscoverLocationScreen from './screens/DiscoverLocationScreen'
 import Camera from './Components/Camera'
 import PotentialConnection from './screens/PotentialConnection'
+
 
 const AppNavigator = createStackNavigator({
 
@@ -21,6 +23,7 @@ const AppNavigator = createStackNavigator({
   InputDetail: InputDetailScreen,
   InputSubmitted: InputSubmittedScreen,
   DiscoverHome: DiscoverHomeScreen,
+  DiscoverLocation: DiscoverLocationScreen,
   Camera:Camera,
   PotCon:PotentialConnection
 

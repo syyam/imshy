@@ -8,10 +8,14 @@ import {
     ImageBackground,
     TouchableHighlight,
     TouchableOpacity,
-    Alert
+    Alert,
+    ToastAndroid
 } from "react-native";
 import { CheckBox } from 'react-native-elements'
 import Splash from '../Components/Splash'
+import FBSDK, { LoginManager } from 'react-native-fbsdk'
+
+
 
 
 class LoginScreen extends Component {
@@ -22,7 +26,7 @@ class LoginScreen extends Component {
             UserName: "",
             UserEmail: "",
             UserPassword: "",
-            checked: true,
+            checked: false,
             showSplash: true,
         }
     }
@@ -37,18 +41,10 @@ class LoginScreen extends Component {
         const { UserPassword } = this.state;
         const { checked } = this.state;
 
-        console.log('functionc called')
-
 
         if (UserName) {
-            console.log(UserName)
-
             if (UserEmail) {
-                console.log(UserEmail)
-
                 if (UserPassword) {
-                    console.log(UserPassword)
-
                     if (checked == true) {
                         console.log('checked true')
 
@@ -70,6 +66,7 @@ class LoginScreen extends Component {
 
                                 if (responseJson == 'Registration Successfull') {
                                     this.props.navigation.navigate('Home');
+                                    //me yahan kar raha.. yaha sae chalta he...over
                                 }
                                 else {
                                     Alert.alert(responseJson);
@@ -77,9 +74,12 @@ class LoginScreen extends Component {
                             }).catch((error) => {
                                 console.error(error);
                             });
+                    }//checked
+                    else {
+                        ToastAndroid.show('Please agree to the terms and conditions!', ToastAndroid.SHORT);
                     }
-                }
-            }
+                }//password
+            }//email
         }
     }
 
@@ -88,6 +88,27 @@ class LoginScreen extends Component {
         setTimeout(() => {
             this.setState({ showSplash: false })
         }, 4000)
+    }
+
+    fbAuth = () => {
+        console.log('before executing promise', this);
+        LoginManager.logInWithReadPermissions(['public_profile']).then((result) => {
+            console.log('in promise', this);
+            if (result.isCancelled) {
+                console.log('login was cancelled')
+            }
+            else {
+                console.log(this);
+                console.log(this.props);
+                console.log('login was a success' + result.grantedPermissions.toString())
+                this.props.navigation.navigate('Home'); // yaha se arha ye erroor
+                // wait... same kaam
+                
+            }
+        }, function (error) {
+            console.log('An error occured' + error)
+            LoginManager.logOut()
+        })
     }
     render() {
         if (this.state.showSplash)
@@ -151,7 +172,7 @@ class LoginScreen extends Component {
                                 />
 
                                 <Text style={{ color: '#fff', fontSize: 10, marginRight: 45 }}>I agree to the terms and conditions</Text>
-                                <TouchableHighlight
+                                <TouchableOpacity
                                     onPress={this.UserRegistration} // Home
                                 >
                                     <Image
@@ -163,7 +184,7 @@ class LoginScreen extends Component {
                                         }}
                                         source={require('../src/Icons/Sign_Up.png')}
                                     />
-                                </TouchableHighlight>
+                                </TouchableOpacity>
                             </View>
 
 
@@ -174,15 +195,18 @@ class LoginScreen extends Component {
                             </View>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 15 }}>
-                                <Image
-                                    style={{
-                                        width: 50,
-                                        height: 50,
-                                        resizeMode: 'contain'
 
-                                    }}
-                                    source={require('../src/Icons/F.png')}
-                                />
+                                <TouchableOpacity onPress={this.fbAuth}>
+                                    <Image
+                                        style={{
+                                            width: 50,
+                                            height: 50,
+                                            resizeMode: 'contain'
+
+                                        }}
+                                        source={require('../src/Icons/F.png')}
+                                    />
+                                </TouchableOpacity>
                                 <Image
                                     style={{
                                         width: 50,

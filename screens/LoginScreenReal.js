@@ -8,7 +8,8 @@ import {
     ImageBackground,
     TouchableHighlight,
     TouchableOpacity,
-    Alert
+    Alert,
+    ToastAndroid
 } from "react-native";
 import { CheckBox } from 'react-native-elements'
 
@@ -20,7 +21,7 @@ class LoginScreenReal extends Component {
         this.state = {
             UserName: "",
             UserPassword: "",
-            checked: true
+            checked: false
 
         }
     }
@@ -31,30 +32,37 @@ class LoginScreenReal extends Component {
     userLogin = () => {
         const { UserName } = this.state;
         const { UserPassword } = this.state;
-        if (UserName) {
-            if (UserPassword) {
-                fetch('http://replicapakistan.com/user_login.php', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        name: UserName,
-                        password: UserPassword
-                    })
+        const { checked } = this.state;
 
-                }).then((response) => response.json())
-                    .then((responseJson) => {
-                        if (responseJson == 'Done') {
-                            this.props.navigation.navigate('Home');
-                        }
-                        else {
-                            Alert.alert(responseJson);
-                        }
-                    }).catch((error) => {
-                        console.error(error);
-                    });
+        if (UserName) {
+            if (checked) {
+                if (UserPassword) {
+                    fetch('http://replicapakistan.com/user_login.php', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: UserName,
+                            password: UserPassword
+                        })
+
+                    }).then((response) => response.json())
+                        .then((responseJson) => {
+                            if (responseJson == 'Done') {
+                                this.props.navigation.navigate('Home');
+                            }
+                            else {
+                                Alert.alert(responseJson);
+                            }
+                        }).catch((error) => {
+                            console.error(error);
+                        });
+                }
+            }//checked
+            else {
+                ToastAndroid.show('Please agree to the terms and conditions!', ToastAndroid.SHORT);
             }
         }
     }

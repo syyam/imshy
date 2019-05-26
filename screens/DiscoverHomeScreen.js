@@ -5,16 +5,44 @@ import {
     StyleSheet,
     Image,
     ImageBackground,
-    TouchableHighlight,
+    AsyncStorage,
     TouchableOpacity,
 } from "react-native";
 
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { Dropdown } from 'react-native-material-dropdown';
+import { TextInput } from "react-native-gesture-handler";
+
+
+
 
 
 class DiscoverHomeScreen extends React.Component {
 
+
+
+    componentDidMount() {
+        this._retrieveData();
+
+
+    }
+
+    _retrieveData = async () => {
+        try {
+            const lng = await AsyncStorage.getItem('lng');
+            const lat = await AsyncStorage.getItem('lat');
+            if (lng && lat !== null) {
+                // We have data!!
+                console.log(lng + " " + lat);
+                this.setState({ mapsText: lng + " " + lat })
+            }
+
+        } catch (error) {
+            
+            // Error retrieving data
+        }
+    };
 
     static navigationOptions = {
         header: null
@@ -24,9 +52,11 @@ class DiscoverHomeScreen extends React.Component {
         super(props);
         this.state = {
             isDatePickerVisible: false,
-            isTimePickerVisible: false,
+            // isTimePickerVisible: false,
             selectedDate: "00-00-0000",
-            selectedTime: "00:00-00:00",
+            // selectedTime: "00:00-00:00",
+
+            mapsText: "Search Maps..."
         };
     }
 
@@ -38,28 +68,36 @@ class DiscoverHomeScreen extends React.Component {
     hideDatePicker = () => {
         this.setState({ isDatePickerVisible: false });
     };
-    showTimePicker = () => {
-        this.setState({ isTimePickerVisible: true });
-    };
-
-    hideTimePicker = () => {
-        this.setState({ isTimePickerVisible: false });
-    };
 
     handleDatePicked = date => {
 
         this.setState({ selectedDate: moment(date).format('DD-MM-YYYY') });
         this.hideDatePicker();
     };
-
-    handleTimePicked = time => {
-        var timeRange = moment(time).format('HH:mm') + "-" + moment(time).add(2, 'hours').format('HH:mm')
-        this.setState({ selectedTime: timeRange });
-        this.hideTimePicker();
-    };
+    // showTimePicker = () => {
+    //     this.setState({ isTimePickerVisible: true });
+    // };
+    // hideTimePicker = () => {
+    //     this.setState({ isTimePickerVisible: false });
+    // };
+    // handleTimePicked = time => {
+    //     var timeRange = moment(time).format('HH:mm') + "-" + moment(time).add(2, 'hours').format('HH:mm')
+    //     this.setState({ selectedTime: timeRange });
+    //     this.hideTimePicker();
+    // };
 
 
     render() {
+        let times = [{
+            value: '12:00AM-2:00AM',
+        }, {
+            value: '2:00AM-4:00AM',
+        }, {
+            value: '4:00AM-6:00AM',
+        },
+        {
+            value: '6:00AM-8:00AM',
+        },];
         const { isDatePickerVisible, isTimePickerVisible, selectedDate, selectedTime } = this.state;
         return (
             <View style={styles.container}>
@@ -87,10 +125,8 @@ class DiscoverHomeScreen extends React.Component {
 
                     <View style={styles.BottomContainer}>
                         <Text style={{ color: '#fff', fontSize: 17 }}>Search Location</Text>
-
-
-
-                        <View style={styles.inputBox}>
+                        <TouchableOpacity style={styles.inputBox}
+                            onPress={() => this.props.navigation.navigate('DiscoverLocation')}>
 
                             <View style={styles.inputRow}>
                                 <TouchableOpacity>
@@ -99,14 +135,15 @@ class DiscoverHomeScreen extends React.Component {
                                 <Text
 
                                     style={styles.input}
+                                    returnKeyType='go'
 
                                 >
-                                    Search Maps...
+                                    {this.state.mapsText}
                                 </Text>
 
                             </View>
 
-                        </View>
+                        </TouchableOpacity>
 
                         <Text style={{ color: '#fff', fontSize: 17, marginTop: 13, }}>Search Date</Text>
 
@@ -126,7 +163,6 @@ class DiscoverHomeScreen extends React.Component {
                                         isVisible={isDatePickerVisible}
                                         onConfirm={this.handleDatePicked}
                                         onCancel={this.hideDatePicker}
-                                        datePickerModeAndroid={'spinner'}
                                     />
                                 </TouchableOpacity>
                             </View>
@@ -138,8 +174,25 @@ class DiscoverHomeScreen extends React.Component {
 
                         <View style={styles.inputBox}>
 
-                            <View style={styles.inputRow}>
-                                <Text
+                            {/* <View style={styles.inputRow}> */}
+                            <Dropdown
+                                containerStyle={{
+                                    width: 300,
+                                    height: 40,
+                                    justifyContent: 'center',
+
+                                }}
+
+                                inputContainerStyle={{
+                                    marginBottom: 13,
+                                    justifyContent: 'center',
+                                }}
+
+                                label='Search Time Frame'
+                                data={times}
+                            />
+
+                            {/* <Text
 
                                     style={styles.input}
                                 >
@@ -155,11 +208,9 @@ class DiscoverHomeScreen extends React.Component {
                                         mode={'time'}
                                         is24Hour={false}
                                     />
-                                </TouchableOpacity>
-                            </View>
+                                </TouchableOpacity> */}
+                            {/* </View> */}
                         </View>
-
-
 
 
                         <TouchableOpacity
@@ -203,10 +254,10 @@ const styles = StyleSheet.create({
         position: 'absolute', top: 10
     },
     BottomContainer: {
-        marginLeft: 25,
-        flexGrow: 1,
+        marginLeft: 5,
+        // flexGrow: 1,
         marginTop: 110,
-        marginRight: 25,
+        marginRight: 5,
     },
     inputBox: {
         backgroundColor: '#fff',
@@ -215,26 +266,35 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingTop: 5,
         paddingBottom: 5,
-        paddingLeft: 5,
+        paddingLeft: 10,
         paddingRight: 5,
         justifyContent: 'center'
     },
     inputRow: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginLeft: 25,
+        marginRight: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         height: 40
     },
+
     input: {
+        paddingLeft: 10,
+        paddingRight: 10,
         width: 290,
         backgroundColor: '#fff',
         paddingHorizontal: 16,
         fontSize: 15,
     },
     inputIcons: {
-        marginLeft: 10
+        marginLeft: 8
     },
+
     dropDown: {
+
         marginRight: 10,
     },
 

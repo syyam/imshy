@@ -90,7 +90,6 @@ class PotentialConnection extends Component {
                     </View>
 
 
-                    
 
                 </ImageBackground>
             </View>
