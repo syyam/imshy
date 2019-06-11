@@ -3,11 +3,12 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput,
     Image,
     ImageBackground,
     TouchableOpacity
 } from "react-native";
+import Footer from "../Components/Footer";
+
 
 
 class PotentialConnection extends Component {
@@ -73,7 +74,7 @@ class PotentialConnection extends Component {
                             }}>Syyam Jan</Text>
 
                             <TouchableOpacity
-                                //onPress={() => this.props.navigation.navigate('InputSubmitted')}
+                                onPress={() => this.props.navigation.navigate('ConfirmUser')}
                             >
                                 <Image
                                     style={{
@@ -90,7 +91,7 @@ class PotentialConnection extends Component {
                     </View>
 
 
-
+                    <Footer navigation={this.props.navigation}/>
                 </ImageBackground>
             </View>
         );

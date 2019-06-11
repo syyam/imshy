@@ -6,14 +6,16 @@ import {
     TextInput,
     Image,
     ImageBackground,
+    TouchableHighlight,
     TouchableOpacity,
 
 } from "react-native";
 import Camera from "../Components/Camera";
-import Footer from "../Components/Footer";
+import Footer from '../Components/Footer'
 
 
-class InputDetailScreen extends React.Component {
+
+class TakePicture extends React.Component {
 
 
     static navigationOptions = {
@@ -25,8 +27,6 @@ class InputDetailScreen extends React.Component {
         super(props);
         this.state = {
 
-            date: '',
-            time: '',
             openCamera: false,
             displayPicture: '',
             src: ''
@@ -37,20 +37,7 @@ class InputDetailScreen extends React.Component {
         return uri.length >= 1 ? { uri, isStatic: true } : require('../src/Icons/Upload.png')
     }
     componentDidMount() {
-        var that = this;
-        var date = new Date().getDate(); //Current Date
-        var month = new Date().getMonth() + 1; //Current Month
-        var year = new Date().getFullYear(); //Current Year
-        var hours = new Date().getHours(); //Current Hours
-        var min = new Date().getMinutes(); //Current Minutes
-        var sec = new Date().getSeconds(); //Current Seconds
-        that.setState({
-            //Setting the value of the date time
-            date: date + '/' + month + '/' + year,
-            time: hours + ':' + min + ':' + sec,
-            src: require('../src/Icons/Upload.png')
-        });// ye nae chal rae
-
+        
     }
 
     displayPicture(data) {
@@ -62,8 +49,7 @@ class InputDetailScreen extends React.Component {
         })
     }
     render() {
-        var date = new Date().getDate()
-        //
+       
         if (this.state.openCamera)
             return (<Camera displayPicture={this.displayPicture.bind(this)} />)
         else {
@@ -95,12 +81,7 @@ class InputDetailScreen extends React.Component {
 
 
                         <View style={styles.main}>
-                            <View style={styles.TopTextView}>
-                                <Text style={{ color: '#fff', fontSize: 17 }}>Input Details</Text>
-                                <Text style={{ color: '#fff', fontSize: 14, marginTop: 10 }}>LOCATION: WITHIN 1 MILE FROM CURRENT LOCATION</Text>
-                                <Text style={{ color: '#fff', fontSize: 12, marginTop: 3 }}>Date: {this.state.date} </Text>
-                                <Text style={{ color: '#fff', fontSize: 12, }}>Time: {this.state.time} </Text>
-                            </View>
+
 
                             <View styly={styles.pictureContainer}>
                                 <Text style={{
@@ -128,8 +109,7 @@ class InputDetailScreen extends React.Component {
                                 <View style={styles.inputContainer}>
                                     <TextInput
                                         style={styles.input}
-                                        placeholder="Enter Brief Message"
-                                        placeholderTextColor="#FFF"
+                                        placeholder="Add Message here..."
                                         multiline={true}
                                         numberOfLines={5}
                                     >
@@ -140,7 +120,7 @@ class InputDetailScreen extends React.Component {
 
 
                                 <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate('InputSubmitted')}
+                                    onPress={() => this.props.navigation.navigate('ConfirmationPage')}
                                 >
                                     <Image
                                         style={{
@@ -158,7 +138,6 @@ class InputDetailScreen extends React.Component {
 
                             </View>
 
-
                         </View>
                         <Footer navigation={this.props.navigation}/>
                     </ImageBackground>
@@ -167,7 +146,7 @@ class InputDetailScreen extends React.Component {
         }
     }
 }
-export default InputDetailScreen;
+export default TakePicture;
 
 const styles = StyleSheet.create({
     container: {
@@ -190,10 +169,7 @@ const styles = StyleSheet.create({
         height: 55,
         position: 'absolute', top: 10
     },
-    TopTextView: {
-        justifyContent: 'center',
 
-    },
     pictureContainer: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -210,20 +186,19 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
 
-        width: 200,
+        width: 300,
         marginTop: 10
     },
     input: {
         height: 70,
-        backgroundColor: 'transparent',
+        backgroundColor: '#fff',
         paddingLeft: 15,
         paddingRight: 15,
-        color: "#fff",
-        width: 200,
+        color: "#000",
+        width: 300,
         textAlignVertical: "top",
         alignItems: this.multiline ? 'flex-start' : 'center',
 
-    },
-
+    }
 
 });

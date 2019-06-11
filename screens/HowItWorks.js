@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import {
     View,
-    Text,
     StyleSheet,
-    TextInput,
     Image,
     ImageBackground,
-    TouchableHighlight,
-    TouchableOpacity
-} from "react-native";
-import Footer from '../Components/Footer'
+    TouchableOpacity,
+    Text
 
-class InputSubmittedScreen extends React.Component {
+
+} from "react-native";
+import Footer from "../Components/Footer";
+
+
+
+class HowItWorks extends React.Component {
+
+
 
 
     static navigationOptions = {
@@ -21,7 +25,7 @@ class InputSubmittedScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            //defauilt value of the date time
+
 
         };
     }
@@ -37,8 +41,8 @@ class InputSubmittedScreen extends React.Component {
                             source={require('../src/Icon.png')}
 
                         />
-                    </View>
 
+                    </View>
 
                     <TouchableOpacity style={{
                         alignSelf: 'flex-end',
@@ -53,60 +57,46 @@ class InputSubmittedScreen extends React.Component {
                     </TouchableOpacity>
 
 
-                    <View style={styles.buttonsView}>
-                        <TouchableOpacity
-                            style={{}}
+                    <View style={styles.main}>
 
-                        >
-                            <Image
-                                style={{
-                                    width: 160,
-                                    height: 120
-                                }}
-                                source={require('../src/Icon.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{ marginTop: 20 }}
-
-
-                        >
-                            <Text style={{ color: '#fff', fontSize: 22 }}>Input Submitted</Text>
-                        </TouchableOpacity>
+                        <Text style={{ color: '#fff', fontSize: 22 }}>
+                            Sample text
+                        </Text>
                     </View>
-
-                    <Footer navigation={this.props.navigation}/>
-
-
-
+                    <Footer navigation={this.props.navigation} />
                 </ImageBackground>
             </View>
         );
+
     }
 }
-export default InputSubmittedScreen;
+export default HowItWorks;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
     },
     logoContainer: {
         alignItems: 'center',
-        flexGrow: 1,
+
         justifyContent: 'center'
+    },
+    main: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 0.7,
     },
     logo: {
         width: 70,
         height: 55,
-
         position: 'absolute', top: 10
     },
-    buttonsView: {
-        flexGrow:1,
-        alignItems: 'center'
-    }
+    TopTextView: {
+        marginTop: 20
+
+    },
 
 
 });

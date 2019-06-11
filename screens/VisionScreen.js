@@ -50,6 +50,7 @@ class VisionScreen extends React.Component {
                         >
                             <Image
                                 style={{
+                                    
                                 }}
                                 source={require('../src/giphy.gif')}
                             />

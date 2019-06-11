@@ -119,7 +119,7 @@ class LoginScreenReal extends Component {
                                 onPress={() => this.setState({ checked: !this.state.checked })}
                             />
 
-                            <Text style={{ color: '#fff', fontSize: 10, marginRight: 45 }}>I agree to the terms and conditions</Text>
+                            <Text style={{ color: '#fff', fontSize: 12, marginRight: 45 }}>Remember Me Logged In...</Text>
                             <TouchableHighlight
                                 onPress={this.userLogin}
                             >
@@ -208,7 +208,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        alignContent: 'stretch',
         marginTop: 5
     },
     buttonText: {

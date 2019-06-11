@@ -9,9 +9,8 @@ import {
     TouchableHighlight,
     TouchableOpacity
 } from "react-native";
-import Footer from '../Components/Footer'
 
-class InputSubmittedScreen extends React.Component {
+class ConfirmationPage extends React.Component {
 
 
     static navigationOptions = {
@@ -37,8 +36,8 @@ class InputSubmittedScreen extends React.Component {
                             source={require('../src/Icon.png')}
 
                         />
-                    </View>
 
+                    </View>
 
                     <TouchableOpacity style={{
                         alignSelf: 'flex-end',
@@ -53,60 +52,76 @@ class InputSubmittedScreen extends React.Component {
                     </TouchableOpacity>
 
 
-                    <View style={styles.buttonsView}>
-                        <TouchableOpacity
-                            style={{}}
+                    <View style={styles.main}>
 
+                        <Image style={{
+                            width: 240,
+                            height: 160,
+                            resizeMode: 'contain',
+
+
+                        }}
+                            source={require('../src/Icons/Logo.png')}
+
+                        />
+
+
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('TakePicture')}
                         >
                             <Image
                                 style={{
-                                    width: 160,
-                                    height: 120
+                                    width: 100,
+                                    alignSelf: 'flex-end',
+                                    resizeMode: 'contain',
+
                                 }}
-                                source={require('../src/Icon.png')}
+
+                                source={require('../src/Icons/Submit_Request.png')}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{ marginTop: 20 }}
 
 
-                        >
-                            <Text style={{ color: '#fff', fontSize: 22 }}>Input Submitted</Text>
-                        </TouchableOpacity>
+
+
                     </View>
-
-                    <Footer navigation={this.props.navigation}/>
-
-
 
                 </ImageBackground>
             </View>
         );
     }
 }
-export default InputSubmittedScreen;
+export default ConfirmationPage;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
     },
     logoContainer: {
         alignItems: 'center',
-        flexGrow: 1,
+
         justifyContent: 'center'
+    },
+    main: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 1,
     },
     logo: {
         width: 70,
         height: 55,
-
         position: 'absolute', top: 10
     },
-    buttonsView: {
-        flexGrow:1,
-        alignItems: 'center'
-    }
+
+    pictureContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        justifyContent: 'center',
+        marginTop: 20
+    },
+
 
 
 });

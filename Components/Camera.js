@@ -45,14 +45,12 @@ class Camera extends React.Component {
             </View>
         );
     }
-    takePicture = async function () { //teri bat sae he.
+    takePicture = async function () { 
         if (this.camera) {
-            //idhr maybe acha thanks!
-            //aik bat batein yeh dub data.uri jata hai
+            
             const options = { quality: 0.5, base64: true };
-            const data = await this.camera.takePictureAsync(options); //pele ye chale ga...await hatau?
-            this.props.displayPicture(data.uri)// phr parent par aega
-           // acha to me koi loading laga du?? haan mera khayal hai yehi sahi approch hailoading kaha aegi??
+            const data = await this.camera.takePictureAsync(options); 
+            this.props.displayPicture(data.uri)           
             console.log(data.uri);
         }
     };

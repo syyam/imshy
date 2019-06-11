@@ -3,12 +3,13 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput,
+
     Image,
     ImageBackground,
-    TouchableHighlight,
     TouchableOpacity
 } from "react-native";
+import Footer from '../Components/Footer'
+
 
 class HomeScreen extends React.Component {
 
@@ -30,7 +31,7 @@ class HomeScreen extends React.Component {
 
 
                         <TouchableOpacity
-                            //onPress={() => this.props.navigation.navigate('LoginReal')}
+                            onPress={() => this.props.navigation.navigate('HowItWorks')}
                         >
                             <Text style={{
                                 color: '#fff', fontSize: 22, alignItems: 'center',
@@ -68,6 +69,8 @@ class HomeScreen extends React.Component {
                                 />
                             </TouchableOpacity>
                         </View>
+
+                        <Footer navigation={this.props.navigation}/>
                     </View>
 
 
@@ -101,7 +104,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
 
         alignItems: 'center'
-    }
+    },
+
 
 
 });
